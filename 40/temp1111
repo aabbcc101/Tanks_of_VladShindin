@@ -1,0 +1,138 @@
+   #moving
+               
+                #if self.move_right == True:
+                    #self.bender.real_x += self.bender.speed #*  TILE # right
+              
+                #if self.move_left == True:
+                    #self.bender.real_x -= self.bender.speed #* TILE # left
+
+                ###fallen
+                fall = False
+                brick = 0
+                jump_to_a_step = False
+                celling = False
+                for row in range(len(self.a_map.hard_wall)):
+                    for xy in range(len(self.a_map.hard_wall[row])):
+                        x = self.a_map.hard_wall[row][xy][1]
+                        y = self.a_map.hard_wall[row][xy][0] 
+                        if x <= self.bender.real_x  <= x + TILE and y <= self.bender.real_y + self.bender.Y_HEIGHT <= y + 5: # LEFT DOWN
+                            fall = True
+                            self.bender.jump_activate = 0
+                            self.bender.jump_up = False
+                        elif x <= self.bender.real_x+ self.bender.X_WIGHT/2  <= x + TILE and y <= self.bender.real_y + self.bender.Y_HEIGHT <= y + 5: # MIDLE DOWN
+                            fall = True
+                            self.bender.jump_activate = 0
+                            self.bender.jump_up = False
+                        
+                        elif x <= self.bender.real_x+ self.bender.X_WIGHT  <= x + TILE and y <= self.bender.real_y + self.bender.Y_HEIGHT <= y + 5: # RIGHT DOWN
+                            fall = True
+                            self.bender.jump_activate = 0
+                            self.bender.jump_up = False
+                            
+                        #hit in a celling
+                        
+                        if x <= self.bender.real_x  <= x + TILE and y <= self.bender.real_y <= y +  TILE: # LEFT TOP
+                            self.bender.jump_up = False
+                        if x <= self.bender.real_x + self.bender.X_WIGHT/2  <= x + TILE and y <= self.bender.real_y <= y +  TILE: # LEFT MIDLE
+                            self.bender.jump_up = False
+                        if x <= self.bender.real_x + self.bender.X_WIGHT  <= x + TILE and y <= self.bender.real_y <= y +  TILE: # RIGHT TOP
+                            self.bender.jump_up = False
+                            
+                        ##hit left 
+                        
+                        #if x <= self.bender.real_x  <= x + TILE and y <= self.bender.real_y <= y +TILE and self.move_left == True: # LEFT TOP
+                            #self.move_left = False
+                            #self.bender.real_x += self.bender.speed# *  TILE # right
+                        #if x <= self.bender.real_x  <= x + TILE and y <= self.bender.real_y  + TILE <= y + TILE and self.move_left == True:  # LEFT MIDLE
+                            #self.move_left = False
+                            #self.bender.real_x += self.bender.speed #*  TILE # right
+                        #if x <= self.bender.real_x  <= x + TILE and y <= self.bender.real_y  + TILE*2 <= y + TILE and self.move_left == True:  # LEFT MIDLE
+                            #self.move_left = False
+                            #self.bender.real_x += self.bender.speed #*  TILE # right
+                        #if x <= self.bender.real_x  <= x + TILE and y <= self.bender.real_y  + TILE*3 <= y + TILE and self.move_left == True:  # LEFT MIDLE
+                            #self.move_left = False
+                            #self.bender.real_x += self.bender.speed #*  TILE # right
+                        #if x <= self.bender.real_x  <= x + TILE and y <= self.bender.real_y + TILE*4 <= y + TILE and self.move_left == True: # LEFT MIDLE
+                            #self.move_left = False
+                            #self.bender.real_x += self.bender.speed #*  TILE# right
+
+                       # hit right
+                        
+                        #if x <= self.bender.real_x + self.bender.X_WIGHT <= x + TILE and y <= self.bender.real_y <= y + TILE and self.move_right == True: # LEFT TOP
+                            #self.move_right = False
+                            #self.bender.real_x -= self.bender.speed #*  TILE # left
+                        #if x <= self.bender.real_x + self.bender.X_WIGHT <= x + TILE and y <= self.bender.real_y + TILE <= y + TILE and self.move_right == True: 
+                            #self.move_right = False
+                            #self.bender.real_x -= self.bender.speed #*  TILE # left
+        
+                            
+                        #if x <= self.bender.real_x + self.bender.X_WIGHT <= x + TILE and y <= self.bender.real_y + TILE * 2 <= y + TILE and self.move_right == True:
+                            #self.move_right = False
+                            #self.bender.real_x -= self.bender.speed #*  TILE # left                           
+                        #if x <= self.bender.real_x + self.bender.X_WIGHT <= x + TILE and y <= self.bender.real_y + TILE *3 <= y + TILE and self.move_right == True: 
+                            #self.move_right = False
+                            #self.bender.real_x -= self.bender.speed #*  TILE # left
+                        #if x <= self.bender.real_x + self.bender.X_WIGHT <= x + TILE and y <= self.bender.real_y +TILE *4 <= y + TILE and self.move_right == True:
+                            #self.move_right = False
+                            #self.bender.real_x -= self.bender.speed# *  TILE # left                            
+
+                            #stairs
+                            
+                        brick_left = 0
+                        jump_to_a_step_left = False
+                        brick_right = 0
+                        jump_to_a_step_right = False
+                        celling = False
+                        for i in  range(len(self.a_map.hard_wall[row])):
+                            right_x = self.a_map.hard_wall[row][i][1]
+                            right_y = self.a_map.hard_wall[row][i][0]
+                        
+                            
+                            # checking for celling    
+                            for x,y in self.a_map.hard_wall_left_to_right[(self.bender.real_y // TILE)-1]:#self.bender.real_y // TILE]:
+                                if (x <= self.bender.real_x - self.bender.speed  <= x + TILE and y <= self.bender.real_y -30 <= y +  TILE # LEFT TOP
+                                    or x <= self.bender.real_x + self.bender.X_WIGHT/2  <= x + TILE and y <= self.bender.real_y-30 <= y +  TILE # LEFT MIDLE
+                                    or x <= self.bender.real_x + self.bender.X_WIGHT  <= x + TILE and y <= self.bender.real_y -30 <= y +  TILE): # RIGHT TOP
+                                    celling = True
+                                    #print('CELLING!!!!')
+                                
+                                #for right_y,right_x in self.a_map.hard_wall[(self.bender.real_x // TILE)]:
+                                    
+                                    #checking for left bricks
+                                    if (right_x <= self.bender.real_x -5 <= right_x + TILE and right_y <= self.bender.real_y +self.bender.Y_HEIGHT -40 <= right_y + TILE
+                                        or ( right_x <= self.bender.real_x -5 <= right_x + TILE and right_y <= self.bender.real_y +self.bender.Y_HEIGHT - 60 <= right_y + TILE)
+                                        or right_x <= self.bender.real_x -5 <= right_x + TILE and right_y <= self.bender.real_y +self.bender.Y_HEIGHT - 90 <= right_y + TILE
+                                        or right_x <= self.bender.real_x -5 <= right_x + TILE and right_y <= self.bender.real_y +self.bender.Y_HEIGHT - 115 <= right_y + TILE):
+                                        brick_left +=1
+                                        self.move_left = False
+                                    # checking for the left step
+                                    if (right_x <= self.bender.real_x -5  <= right_x + TILE and  right_y <= self.bender.real_y + self.bender.Y_HEIGHT -10 <= right_y +TILE 
+                                        or right_x <= self.bender.real_x -2  <= right_x + TILE and  right_y <= self.bender.real_y + self.bender.Y_HEIGHT -10 <= right_y +TILE 
+                                        or right_x <= self.bender.real_x -10  <= right_x + TILE and  right_y <= self.bender.real_y + self.bender.Y_HEIGHT -10 <= right_y +TILE 
+                                        and self.move_left == True): # LEFT STEp
+                                        jump_to_a_step_left = True
+                                        
+                                #for right_y,right_x in self.a_map.hard_wall[((self.bender.real_x + self.bender.X_WIGHT) // TILE)+1]:
+                                
+                                    #checking for right bricks
+                                    if (right_x <= self.bender.real_x + self.bender.X_WIGHT + 5 <= right_x + TILE and right_y <= self.bender.real_y +self.bender.Y_HEIGHT -40 <= right_y + TILE
+                                        or (right_x <= self.bender.real_x + self.bender.X_WIGHT + 5 <= right_x + TILE and right_y <= self.bender.real_y +self.bender.Y_HEIGHT - 60 <= right_y + TILE)
+                                        or right_x <= self.bender.real_x + self.bender.X_WIGHT + 5 <= right_x + TILE and right_y <= self.bender.real_y +self.bender.Y_HEIGHT - 90 <= right_y + TILE
+                                        or right_x <= self.bender.real_x + self.bender.X_WIGHT + 5 <= right_x + TILE and right_y <= self.bender.real_y +self.bender.Y_HEIGHT - 115 <= right_y + TILE):
+                                        brick_right +=1
+                                        self.move_right = False
+                                        
+                                    # checking for the right step
+                                    if (right_x <= self.bender.real_x + self.bender.X_WIGHT + 5  <= right_x + TILE and  right_y <= self.bender.real_y + self.bender.Y_HEIGHT -10 <= right_y +TILE 
+                                        or right_x <= self.bender.real_x + self.bender.X_WIGHT + 2  <= right_x + TILE and  right_y <= self.bender.real_y + self.bender.Y_HEIGHT -10 <= right_y +TILE 
+                                        or right_x <= self.bender.real_x + self.bender.X_WIGHT + 10  <= right_x + TILE and  right_y <= self.bender.real_y + self.bender.Y_HEIGHT -10 <= right_y +TILE 
+                                        and self.move_right == True): # LEFT STEp
+                                        jump_to_a_step_right = True
+                 
+                        if brick_left == 0 and jump_to_a_step_left== True and celling == False:
+                            self.bender.real_x -= 1 #*  TILE 
+                            self.bender.real_y += -30
+                            
+                        if brick_right == 0 and jump_to_a_step_right== True and celling == False:
+                            self.bender.real_x += 1 #*  TILE 
+                            self.bender.real_y += -30
